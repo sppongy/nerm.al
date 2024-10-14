@@ -6,7 +6,7 @@
 > Each folder in this repo represents a seperate proxmox container and contains the applicable docker-compose stack.
 
 **Rack layout** <br>
-power strip <br>
+Power strip <br>
 OPNSense box <br>
 MikroTik switch <br>
 gaming PC <br>
@@ -39,3 +39,4 @@ proxmox host <br>
 | VM |
 | :-: |
 | [TrueNAS Scale](https://github.com/truenas/scale-build) |
+
