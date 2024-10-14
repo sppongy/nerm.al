@@ -15,14 +15,14 @@ proxmox host <br>
 ### Proxmox hosts
 > [!NOTE]
 > For more information check the wiki
-#### [Frontend](frontend/README.md)
+#### Frontend
 | LXC - Arch|
 | :-: |
 | [Jellyfin](https://github.com/jellyfin/jellyfin), [Kavita](https://github.com/Kareadita/Kavita) |
 | [Gitea](https://github.com/go-gitea/gitea), [Vaultarden](https://github.com/dani-garcia/vaultwarden) | 
 | [Authentik](https://github.com/goauthentik/authentik) |
 
-#### [Backend](backend/README.md)
+#### Backend
 | LXC - Arch|
 | :-: |
 | [Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager) |
@@ -30,7 +30,7 @@ proxmox host <br>
 | [Gluetun](https://github.com/qdm12/gluetun), [qBittorrent](https://github.com/qbittorrent/qBittorrent), [SABnzbd](https://github.com/sabnzbd/sabnzbd) |
 | [Sonarr](https://github.com/Sonarr/Sonarr), [Radarr](https://github.com/Radarr/Radarr), [Prowlarr](https://github.com/Prowlarr/Prowlarr), [Bazarr](https://github.com/morpheus65535/bazarr), [Doplarr](https://github.com/kiranshila/Doplarr) |
 
-#### [Server](servers/README.md)
+#### Server
 | LXC - Arch|
 | :-: |
 | [Velocity](https://github.com/PaperMC/Velocity), [Paper](https://github.com/PaperMC/Paper), [Forge](https://github.com/MinecraftForge/MinecraftForge) |
