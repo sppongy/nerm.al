@@ -1,0 +1,68 @@
+include:
+  - authentik.yaml
+
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    env_file:
+      - ./env/vaultwarden
+    ports:
+      - "82:80"
+    environment:
+      - DOMAIN=https://vault.nerm.al
+      - PUSH_ENABLED=true
+    volumes:
+      - /data/vaultwarden:/data
+  kavita:
+    container_name: kavita
+    image: jvmilazz0/kavita:latest
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PUID=950
+      - GUID=950
+    volumes:
+      - /docker/config/kavita:/app/config
+      - /data/media:/data/media
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "222:22"
+    environment:
+      - USER_UID=950
+      - USER_GID=950
+    volumes:
+      - /data/files/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=gitea
+      - MYSQL_DATABASE=gitea
+    volumes:
+      - /data/files/mysql:/var/lib/mysql
+
+  jellyfin:
+    container_name: jellyfin
+    image: ghcr.io/hotio/jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/jellyfin:/app/config
+      - /data/media:/data/media

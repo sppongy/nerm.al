@@ -1,0 +1,151 @@
+services:
+  nginxproxymanager:
+     container_name: nginxpm
+     image: jc21/nginx-proxy-manager:latest
+     restart: unless-stopped
+     ports:
+       - "80:80"
+       - "81:81"
+       - "443:443"
+       - "25565:25565"
+     volumes:
+       - /docker/config/nginxpm:/data
+       - /docker/config/letsencrypt:/etc/letsencrypt
+       - /data/www:/data/www
+# Downloaders
+  gluetun:
+    container_name: gluetun
+    image: qmcgaw/gluetun
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      ./env/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=airvpn
+      - VPN_TYPE=wireguard
+      - SERVER_COUNTRIES=Canada
+      - LOG_LEVEL=debug
+      - OPENVPN_VERSION=2.4
+      - FIREWALL_VPN_INPUT_PORTS=46575
+    privileged: true
+    devices:
+      - /dev/net/tun:/dev/net/tun
+  qbittorrent:
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - WEBUI_PORT=8080
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/qbittorent:/config
+      - /data/media:/data/media
+  sabnzbd:
+    container_name: sabnzbd
+    image: ghcr.io/hotio/sabnzbd
+    restart: unless-stopped
+    ports:
+      - "8090:8080"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/sabnzbd:/config
+      - /data/media:/data/media
+
+# Downloaders
+  prowlarr:
+    container_name: prowlarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/prowlarr
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/prowlarr:/config
+  bazarr:
+    container_name: bazarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/bazarr
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/bazarr:/config
+      - /data/media:/data/media
+  sonarr:
+    container_name: sonarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/sonarr
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/sonarr:/config
+      - /data/media:/data/media
+  radarr:
+    container_name: radarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/radarr
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /docker/config/radarr:/config
+      - /data/media:/data/media
+  doplarr:
+    container_name: doplarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/doplarr:latest
+    env_file:
+      - ./env/doplarr
+    environment:
+      - SONARR__URL=http://sonarr:8989
+      - RADARR__URL=http://radarr:7878
+      - LOG_LEVEL=:report
+  tachidesk:
+    container_name: tachidesk
+    image: ghcr.io/suwayomi/tachidesk:latest
+    restart: unless-stopped
+    ports:
+      - "4567:4567"
+    environment:
+      - PUID=950
+      - PGID=950
+    volumes:
+      - /data/media/books/new/:/home/suwayomi/.local/share/Tachidesk/downloads
+      - /docker/config/tachidesk/:/home/suwayomi/.local/share/Tachidesk
+# Logging
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    volumes:
+      - /docker/config/loki-config.yml:/etc/loki/loki-config.yml
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:latest
+    restart: unless-stopped
+    volumes:
+      - /docker/config/promtail-config.yml:/etc/promtail/promtail-config.yml
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"

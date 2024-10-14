@@ -1,0 +1,62 @@
+services:
+  proxy:
+    container_name: mc-velocity
+    image: itzg/mc-proxy
+    environment:
+      TYPE: VELOCITY
+      DEBUG: "false"
+      ENABLE_RCON: "true"
+      UID: 950
+      GID: 950
+    ports:
+      - "25565:25577"
+    volumes:
+      - /data/mc/config/velocity.toml:/config/velocity.toml:ro
+      - /data/mc/config/forwarding.secret:/config/forwarding.secret:ro
+      - /data/mc/server:/server
+  lobby:
+    container_name: mc-lobby
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      ONLINE_MODE: "FALSE"
+      TYPE: PAPER
+      SYNC_SKIP_NEWER_IN_DESTINATION: false
+      UID: 950
+      GID: 950
+      JVM_OPTS: -Dpaper.disableChannelLimit=true 
+    volumes:
+      - /data/mc/config/paper-global.yml:/config/paper-global.yml
+      - /data/mc/lobby/:/data
+    ports:
+      - "25566:25565"
+  vanilla: 
+    container_name: mc-vanilla
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      ONLINE_MODE: "FALSE"
+      TYPE: PAPER
+      SYNC_SKIP_NEWER_IN_DESTINATION: false
+      UID: 950
+      GID: 950
+    volumes:
+      - /data/mc/config/paper-global.yml:/config/paper-global.yml
+      - /data/mc/vanilla:/data
+    ports:
+      - "25567:25565"
+  rpg:
+    container_name: mc-rpg
+    image: itzg/minecraft-server:java17
+    environment:
+      EULA: "true"
+      UID: 950
+      GID: 950
+      MEMORY: "24G"
+      TYPE: "FORGE"
+      VERSION: "1.18.2"
+      FORGE_VERSION: "40.2.17"
+    ports:
+      - "25568:25565"
+    volumes:
+      - /data/mc/rpg:/data
