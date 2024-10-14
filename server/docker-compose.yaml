@@ -11,8 +11,8 @@ services:
     ports:
       - "25565:25577"
     volumes:
-      - /data/mc/config/velocity.toml:/config/velocity.toml:ro
-      - /data/mc/config/forwarding.secret:/config/forwarding.secret:ro
+      - /docker/config/velocity.toml:/config/velocity.toml:ro
+      - /docker/config/forwarding.secret:/config/forwarding.secret:ro
       - /data/mc/server:/server
   lobby:
     container_name: mc-lobby
@@ -41,7 +41,7 @@ services:
       UID: 950
       GID: 950
     volumes:
-      - /data/mc/config/paper-global.yml:/config/paper-global.yml
+      - /docker/config/paper-global.yml:/config/paper-global.yml
       - /data/mc/vanilla:/data
     ports:
       - "25567:25565"
