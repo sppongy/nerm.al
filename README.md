@@ -1,6 +1,6 @@
-<h1 style="text-align: center;">nerm<sub>.al</sub> </h1>
-<p style="text-align: center;"><b>homelab running frontend media applications,<br>minecraft servers, a gitea instance... etc </b></p>
-<p style="text-align: center;"><i>still an early wip</i></p>
+<h1 align="center">nerm<sub>.al</sub> </h1>
+<p align="center"><b>homelab running frontend media applications,<br>minecraft servers, a gitea instance... etc </b></p>
+<p align="center"><i>still an early wip</i></p>
 
 ## Overview   
 > Each folder in this repo represents a seperate proxmox container and contains the applicable docker-compose stack.
