@@ -14,7 +14,7 @@ proxmox host <br>
 
 ### Proxmox hosts
 > [!NOTE]
-> For more information check the wiki
+> For more information check the wiki.
 #### Frontend
 | LXC - Arch|
 | :-: |
