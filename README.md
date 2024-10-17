@@ -1,5 +1,5 @@
 <h1 align="center">nerm<sub>.al</sub> </h1>
-<p align="center"><b>homelab running frontend media applications,<br>minecraft servers, a gitea instance... etc </b></p>
+<p align="center"><b>homelab running frontend media applications,<br>minecraft servers, a gitea instance.. etc </b></p>
 <p align="center"><i>still an early wip</i></p>
 
 ## Overview   
