@@ -19,7 +19,7 @@ proxmox host <br>
 | LXC - Arch|
 | :-: |
 | [Jellyfin](https://github.com/jellyfin/jellyfin), [Kavita](https://github.com/Kareadita/Kavita) |
-| [Gitea](https://github.com/go-gitea/gitea), [Vaultarden](https://github.com/dani-garcia/vaultwarden) | 
+| [Gitea](https://github.com/go-gitea/gitea), [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | 
 | [Authentik](https://github.com/goauthentik/authentik) |
 
 #### Backend
